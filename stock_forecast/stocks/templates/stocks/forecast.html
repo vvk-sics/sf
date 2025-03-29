@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Forecast</title>
+    <script>
+        function fetchForecast(event) {
+            event.preventDefault();
+            let formData = new FormData(document.getElementById("forecastForm"));
+
+            fetch("{% url 'forecast_stock' %}", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("forecastImage").src = "data:image/png;base64," + data.image;
+            });
+        }
+    </script>
+</head>
+<body>
+    <h2>Stock Price Forecast</h2>
+    <form id="forecastForm" onsubmit="fetchForecast(event)">
+        {% csrf_token %}
+        <label>Company:</label>
+        <select name="company">
+            <option value="AAPL">Apple</option>
+            <option value="FB">Facebook</option>
+            <option value="AMD">AMD</option>
+            <option value="INTC">Intel</option>
+        </select><br>
+
+        <label>Start Date:</label>
+        <input type="date" name="start_date"><br>
+
+        <label>Period (Days):</label>
+        <input type="number" name="period" value="30"><br>
+
+        <label>Frequency:</label>
+        <select name="frequency">
+            <option value="D">Daily</option>
+            <option value="W">Weekly</option>
+            <option value="M">Monthly</option>
+        </select><br>
+
+        <button type="submit">Get Forecast</button>
+    </form>
+
+    <h3>Forecast Graph</h3>
+    <img id="forecastImage" src="" alt="Forecast will appear here">
+</body>
+</html>
