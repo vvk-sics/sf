@@ -13,7 +13,14 @@
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById("forecastImage").src = "data:image/png;base64," + data.image;
+                if (data.error) {
+                    document.getElementById("errorMessage").innerText = data.error;
+                    return;
+                }
+                document.getElementById("forecastImage").src = "data:image/png;base64," + data.forecast;
+                document.getElementById("trendImage").src = "data:image/png;base64," + data.trend;
+                document.getElementById("weeklyImage").src = "data:image/png;base64," + data.weekly;
+                document.getElementById("yearlyImage").src = "data:image/png;base64," + data.yearly;
             });
         }
     </script>
@@ -48,5 +55,14 @@
 
     <h3>Forecast Graph</h3>
     <img id="forecastImage" src="" alt="Forecast will appear here">
+
+    <h3>Trend Component</h3>
+    <img id="trendImage" src="" alt="Trend Component will appear here">
+
+    <h3>Weekly Seasonality</h3>
+    <img id="weeklyImage" src="" alt="Weekly Seasonality will appear here">
+
+    <h3>Yearly Seasonality</h3>
+    <img id="yearlyImage" src="" alt="Yearly Seasonality will appear here">
 </body>
 </html>
