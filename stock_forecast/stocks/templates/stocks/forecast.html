@@ -28,6 +28,9 @@
                 Plotly.newPlot("trendGraph", JSON.parse(data.trend));
                 Plotly.newPlot("weeklyGraph", JSON.parse(data.weekly));
                 Plotly.newPlot("yearlyGraph", JSON.parse(data.yearly));
+
+                document.getElementById("prophetImage").innerHTML = `<img src="${data.prophet_default}" class="img-fluid" alt="Prophet Forecast Plot"/>`;
+
             });
         }
     </script>
@@ -75,13 +78,23 @@
 
     <!-- Responsive Grid Layout for Graphs -->
     <div class="row mt-4">
-        <div class="col-md-6">
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card p-3">
+                    <h4 class="text-center">Prophet Default Forecast Plot</h4>
+                    <div id="prophetImage" class="text-center"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 mt-4">
             <div class="card p-3">
                 <h4 class="text-center">Forecasted Prices</h4>
                 <div id="forecastGraph"></div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 mt-4">
             <div class="card p-3">
                 <h4 class="text-center">Trend Component</h4>
                 <div id="trendGraph"></div>
